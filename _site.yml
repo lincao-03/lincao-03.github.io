@@ -1,6 +1,5 @@
 name: "lin-cao"
 output_dir: "."
-exclude: ["dashboard"]
 
 navbar:
   title: "Home"
@@ -8,6 +7,8 @@ navbar:
     - text: "Resume"
       href: resume.html
   right:
+    - text: "Weather Dashboard"
+      href: dashboard.html
     - icon: fa-github fa-lg
       href: https://github.com/lincao-03
     - icon: fa-envelope fa-lg

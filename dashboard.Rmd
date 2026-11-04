@@ -45,19 +45,9 @@ monthly_precipitation =
   filter(observed_days > 0)
 ```
 
-Column {data-width=650}
+Column {data-width=500}
 -----------------------------------------------------------------------
 
-### About the data
-
-This dashboard shows daily weather observations from Central Park, New York,
-from January 2006 through December 2010. Hover over the plots to see details.
-Monthly precipitation totals sum the daily measurements reported for each month.
-
-Source [P8105 NY NOAA dataset](https://p8105.com/dataset_noaa.html).
-
-Column {data-width=440}
------------------------------------------------------------------------
 
 ### Daily minimum vs. maximum temperature
 
@@ -79,6 +69,9 @@ central_park |>
   )
 ```
 
+Column {data-width=500}
+-----------------------------------------------------------------------
+
 ### Daily maximum temperature by calendar month
 
 ```{r temperature-box}
@@ -99,9 +92,6 @@ central_park |>
     yaxis = list(title = "Daily maximum (°C)")
   )
 ```
-
-Column {data-height=350}
------------------------------------------------------------------------
 
 ### Monthly precipitation totals
 

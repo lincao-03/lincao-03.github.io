@@ -1,0 +1,20 @@
+name: "lin-cao"
+output_dir: "."
+exclude: ["dashboard"]
+
+navbar:
+  title: "Home"
+  left:
+    - text: "Resume"
+      href: resume.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/lincao-03
+    - icon: fa-envelope fa-lg
+      href: mailto:lc4152@cumc.columbia.edu
+    - text: "LinkedIn"
+      href: "https://www.linkedin.com/in/lin-cao-433329408/"
+
+output:
+  html_document:
+    theme: flatly

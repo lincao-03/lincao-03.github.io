@@ -1,0 +1,28 @@
+---
+title: "resume"
+---
+
+## Education
+
+**Columbia University**  
+M.S. in Biostatistics, Data Science Track | 2026–present
+
+**New York University, Courant Institute of Mathematical Sciences**  
+B.A. in Applied Mathematics | 2026
+
+## Selected Projects
+
+**EEG Sleep Stage Classification**
+
+- Extracted frequency-domain features from 30-second EEG segments in the Sleep-EDF dataset.
+- Compared k-nearest neighbors and support vector machine models for classifying five sleep stages.
+
+**Retail Customer Segmentation**
+
+- Used K-means clustering to identify 11 customer segments.
+- Used a random forest model to predict segment membership.
+
+## Technical Skills
+
+- **R:** tidyverse, ggplot2, and R Markdown
+- **Python:** pandas, NumPy, and Jupyter

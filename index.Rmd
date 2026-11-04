@@ -1,0 +1,13 @@
+---
+title: "Lin Cao's Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+I’m a master’s student in Biostatistics on the Data Science track at Columbia University. I earned my B.A. in Applied Mathematics from New York University.
+
+I’m interested in causal inference, especially how study design and statistical assumptions shape what we can learn about treatment effects. I use R and Python for data cleaning, visualization, and analysis.
+
+See my [resume](resume.html) for my education.

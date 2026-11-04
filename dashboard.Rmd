@@ -2,14 +2,13 @@
 title: "Central Park Weather | 2006–2010"
 output:
   flexdashboard::flex_dashboard:
-    orientation: rows
-    vertical_layout: scroll
+    orientation: columns
+    vertical_layout: fill
 ---
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(tidyverse)
-library(dplyr)
 library(plotly)
 library(p8105.datasets)
 
@@ -46,7 +45,7 @@ monthly_precipitation =
   filter(observed_days > 0)
 ```
 
-Row {data-height=140}
+Column {data-width=650}
 -----------------------------------------------------------------------
 
 ### About the data
@@ -57,7 +56,7 @@ Monthly precipitation totals sum the daily measurements reported for each month.
 
 Source [P8105 NY NOAA dataset](https://p8105.com/dataset_noaa.html).
 
-Row {data-height=440}
+Column {data-width=440}
 -----------------------------------------------------------------------
 
 ### Daily minimum vs. maximum temperature
@@ -72,7 +71,7 @@ central_park |>
     mode = "markers",
     text = ~format(date, "%b %d, %Y"),
     hovertemplate = "%{text}<br>Min %{x:.1f} °C<br>Max %{y:.1f} °C<extra></extra>",
-    marker = list(color = "#237a78", opacity = 0.55, size = 6)
+    marker = list(color = "viridis", opacity = 0.55, size = 6)
   ) |>
   layout(
     xaxis = list(title = "Daily minimum (°C)"),
@@ -89,7 +88,7 @@ central_park |>
     x = ~month,
     y = ~tmax_c,
     type = "box",
-    marker = list(color = "#237a78")
+    marker = list(color = "viridis")
   ) |>
   layout(
     xaxis = list(
@@ -101,7 +100,7 @@ central_park |>
   )
 ```
 
-Row {data-height=390}
+Column {data-height=350}
 -----------------------------------------------------------------------
 
 ### Monthly precipitation totals
@@ -114,7 +113,7 @@ monthly_precipitation |>
     type = "bar",
     text = ~paste(observed_days, "reporting days"),
     hovertemplate = "%{x|%b %Y}<br>%{y:.1f} mm<br>%{text}<extra></extra>",
-    marker = list(color = "#426a9b")
+    marker = list(color = "viridis")
   ) |>
   layout(
     xaxis = list(title = "Month"),

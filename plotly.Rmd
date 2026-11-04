@@ -1,0 +1,123 @@
+---
+title: "Plotly"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data and libraries
+
+Loading libraries
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+
+library(plotly)
+```
+
+Loading data
+```{r}
+data("ny_noaa")
+
+central_park =
+  ny_noaa |>
+  filter(
+    id == "USW00094728",
+    date >= as.Date("2006-01-01"),
+    date < as.Date("2011-01-01")
+  ) |>
+  transmute(
+    date,
+    month = factor(
+      format(date, "%m"),
+      levels = sprintf("%02d", 1:12),
+      labels = month.abb
+    ),
+    month_start = as.Date(format(date, "%Y-%m-01")),
+    tmin_c = as.numeric(tmin) / 10,
+    tmax_c = as.numeric(tmax) / 10,
+    prcp_mm = prcp / 10
+  )
+
+monthly_precipitation =
+  central_park |>
+  group_by(month_start) |>
+  summarise(
+    observed_days = sum(!is.na(prcp_mm)),
+    total_mm = sum(prcp_mm, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  filter(observed_days > 0)
+```
+
+### About the data
+
+This dashboard shows daily weather observations from Central Park, New York,
+from January 2006 through December 2010. Hover over the plots to see details.
+Monthly precipitation totals sum the daily measurements reported for each month.
+
+Source [P8105 NY NOAA dataset](https://p8105.com/dataset_noaa.html).
+
+# Plotly
+
+## Daily minimum vs. maximum temperature
+
+```{r temperature-scatter}
+central_park |>
+  filter(!is.na(tmin_c), !is.na(tmax_c)) |>
+  plot_ly(
+    x = ~tmin_c,
+    y = ~tmax_c,
+    type = "scatter",
+    mode = "markers",
+    text = ~format(date, "%b %d, %Y"),
+    hovertemplate = "%{text}<br>Min %{x:.1f} °C<br>Max %{y:.1f} °C<extra></extra>",
+    marker = list(color = "viridis", opacity = 0.55, size = 6)
+  ) |>
+  layout(
+    xaxis = list(title = "Daily minimum (°C)"),
+    yaxis = list(title = "Daily maximum (°C)")
+  )
+```
+
+### Daily maximum temperature by calendar month
+
+```{r temperature-box}
+central_park |>
+  filter(!is.na(tmax_c)) |>
+  plot_ly(
+    x = ~month,
+    y = ~tmax_c,
+    type = "box",
+    marker = list(color = "viridis")
+  ) |>
+  layout(
+    xaxis = list(
+      title = "Calendar month",
+      categoryorder = "array",
+      categoryarray = month.abb
+    ),
+    yaxis = list(title = "Daily maximum (°C)")
+  )
+```
+
+### Monthly precipitation totals
+
+```{r precipitation-bars}
+monthly_precipitation |>
+  plot_ly(
+    x = ~month_start,
+    y = ~total_mm,
+    type = "bar",
+    text = ~paste(observed_days, "reporting days"),
+    hovertemplate = "%{x|%b %Y}<br>%{y:.1f} mm<br>%{text}<extra></extra>",
+    marker = list(color = "viridis")
+  ) |>
+  layout(
+    xaxis = list(title = "Month"),
+    yaxis = list(title = "Total reported precipitation (mm)", rangemode = "tozero")
+  )
+```
